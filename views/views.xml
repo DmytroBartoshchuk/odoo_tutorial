@@ -1,0 +1,118 @@
+<odoo>
+  <data>
+    <record id="dietfacts_product_template_tree_view" model="ir.ui.view">
+      <field name="inherit_id" ref="product.product_template_tree_view" />
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <field name="categ_id" position="before">
+          <field name="calories"/>
+        </field>
+        <field name="standard_price" position="after">
+          <field name="serving_size"/>
+        </field>
+        <field name="type" position="after">
+          <field name="last_updated"/>
+        </field>
+      </field>
+    </record>
+    <record id="dietfacts_product_template_only_form_view" model="ir.ui.view">
+      <field name="inherit_id" ref="product.product_template_only_form_view" />
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <field name="list_price" position="after">
+          <field name="calories"/>
+          <field name="serving_size"/>
+          <field name="last_updated"/>
+        </field>
+      </field>
+    </record>
+    <record id="product.product_template_action_dietfacts2" model="ir.actions.act_window">
+      <field name="name">Diet Items</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">tree, kanban, form</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="product.product_template_tree_view" />
+      <field name="context">{"search_default_filter_to_sell": 1}</field>
+      <field name="domain">[('categ_id.name','=','Diet Items')]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to define a new product.
+        </p>
+        <p>
+          You must define a product for everything you sell
+        </p>
+      </field>
+    </record>
+    <record id="meal_action_dietfacts" model="ir.actions.act_window">
+      <field name="name">Meals</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.users.meal</field>
+      <field name="view_mode">tree, kanban, form</field>
+      <field name="view_type">form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to define a new meal.
+        </p>
+      </field>
+    </record>
+    <menuitem action="product.product_template_action_dietfacts2" id="menu_product_template_action_dietfacts2" parent="sale.product_menu_catalog" sequence="2" active="True"/>
+    <menuitem action="meal_action_dietfacts" id="menu_meal_action_dietfacts" parent="sale.product_menu_catalog" sequence="3"/>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="my_site.list">
+      <field name="name">MySite list</field>
+      <field name="model">my_site.my_site</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="my_site.action_window">
+      <field name="name">MySite window</field>
+      <field name="res_model">my_site.my_site</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="my_site.action_server">
+      <field name="name">MySite server</field>
+      <field name="model_id" ref="model_my_site_my_site"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="MySite" id="my_site.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="my_site.menu_1" parent="my_site.menu_root"/>
+    <menuitem name="Menu 2" id="my_site.menu_2" parent="my_site.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="my_site.menu_1_list" parent="my_site.menu_1"
+              action="my_site.action_window"/>
+    <menuitem name="Server to list" id="my_site" parent="my_site.menu_2"
+              action="my_site.action_server"/>
+    -->
+  </data>
+</odoo>
